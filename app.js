@@ -14,7 +14,7 @@ app.use(express.json())
 
 app.use(morgan('dev'))
 
-app.use('/start', function (req, res) {
+app.use('/check', function (req, res) {
     res.send("Server started")
 })
 

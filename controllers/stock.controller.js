@@ -113,12 +113,14 @@ const getHighestVolume = async (req, res, next) => {
 
         const { start_date, end_date, symbol } = req.query
 
-        if (!start_date || !end_date) {
-            return next(new AppError("Start date and End Date is required!", 400))
+        if (!symbol && (!start_date || !end_date)) {
+            return next(new AppError("Query is required!", 400))
         }
 
-        const condition = {
-            date: {
+        const condition = {}
+
+        if (start_date && end_date) {
+            condition.date = {
                 $gte: new Date(start_date),
                 $lte: new Date(end_date)
             }
@@ -195,16 +197,17 @@ const getVWAPAverage = async (req, res, next) => {
     try {
         const { start_date, end_date, symbol } = req.query
 
-        if (!start_date || !end_date) {
-            return next(new AppError("Start date and End Date is required!", 400))
+        if (!symbol && (!start_date || !end_date)) {
+            return next(new AppError("Query is required!", 400))
         }
 
-        const condition = {
-            date: {
+        const condition = {}
+
+        if (start_date && end_date) {
+            condition.date = {
                 $gte: new Date(start_date),
                 $lte: new Date(end_date)
-            },
-            symbol: symbol
+            }
         }
 
         if (symbol) {
