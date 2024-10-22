@@ -3,6 +3,8 @@ import fs from 'fs';
 import csvParser from 'csv-parser';
 import StockData from '../models/stock.model.js';
 
+// Function to upload the CSV file
+
 const uploadData = async (req, res, next) => {
     try {
         const results = [];
@@ -12,6 +14,7 @@ const uploadData = async (req, res, next) => {
 
         console.log(`Processing file: ${filePath}`);
 
+        // Mapping of CSV headers
         const headerMapping = {
             'Date': 'date',
             'Symbol': 'symbol',
@@ -40,6 +43,7 @@ const uploadData = async (req, res, next) => {
             return normalizedRow;
         };
 
+        // Validating the rows
         const validateRow = (row) => {
             const requiredFields = ['date', 'symbol', 'series', 'prev_close', 'open', 'high', 'low', 'last', 'close', 'vwap', 'volume', 'turnover', 'trades'];
 
@@ -102,6 +106,8 @@ const uploadData = async (req, res, next) => {
     }
 }
 
+// Function to get highest volume
+
 const getHighestVolume = async (req, res, next) => {
     try {
 
@@ -138,6 +144,8 @@ const getHighestVolume = async (req, res, next) => {
         return next(new AppError(err, 500))
     }
 }
+
+// Function to get Close average
 
 const getCloseAverage = async (req, res, next) => {
     try {
@@ -181,6 +189,8 @@ const getCloseAverage = async (req, res, next) => {
     }
 }
 
+// Function to get VWAP average
+
 const getVWAPAverage = async (req, res, next) => {
     try {
         const { start_date, end_date, symbol } = req.query
@@ -213,7 +223,7 @@ const getVWAPAverage = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: "Close average",
+            message: "VWAP average",
             data: vwapAverage.toFixed(2)
         })
 

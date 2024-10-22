@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 mongoose.set('strictQuery', false)
 
+// Connection with database
 const dbConnection = async () => {
     try {
         console.log(process.env.MONGO_URI)
