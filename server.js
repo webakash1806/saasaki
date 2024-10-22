@@ -1,7 +1,7 @@
 import app from "./app.js"
 import dbConnection from "./config/dbConfig.js"
 
-const PORT = 5500 || process.env.PORT
+const PORT = 5000 || process.env.PORT
 
 app.listen(PORT, async () => {
     await dbConnection()
